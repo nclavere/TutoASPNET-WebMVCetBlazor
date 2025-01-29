@@ -23,7 +23,6 @@ public class Movie
     public required string Genre { get; set; } 
 
     [Display(Name = "Prix")]
-    [Column(TypeName = "decimal(18, 2)")]
     [Range(1, 100, ErrorMessage ="Le prix doit être de 100 maximum")]
     [Required(ErrorMessage = "Le prix est requis")]
     public decimal Price { get; set; }
