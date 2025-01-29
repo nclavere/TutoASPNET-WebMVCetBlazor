@@ -21,7 +21,7 @@ namespace TutoDebutantWebMVC.Controllers
         }
 
         // GET: Movies
-        public async Task<IActionResult> Index(string movieGenre, string searchString)
+        public async Task<IActionResult> Index(string movieGenre, string searchString, string indexTri)
         {
             var genreQuery = from m in _context.Movie
                                             orderby m.Genre
@@ -39,10 +39,39 @@ namespace TutoDebutantWebMVC.Controllers
                 moviesQuery = moviesQuery.Where(x => x.Genre == movieGenre);
             }
 
+            switch (indexTri)
+            {                
+                case "Titre Z-A":
+                    moviesQuery = moviesQuery.OrderByDescending(x => x.Title);
+                    break;
+                case "Prix croissant":
+                    moviesQuery = moviesQuery.OrderBy(x => x.Price);
+                    break;
+                case "Prix décroissant":
+                    moviesQuery = moviesQuery.OrderByDescending(x => x.Price);
+                    break;
+                case "Note croissant":
+                    moviesQuery = moviesQuery.OrderBy(x => x.Rating);
+                    break;
+                case "Note décroissant":
+                    moviesQuery = moviesQuery.OrderByDescending(x => x.Rating);
+                    break;
+                default:
+                    moviesQuery = moviesQuery.OrderBy(x => x.Title);
+                    break;
+            }
+
             var movieGenreVM = new MovieGenreViewModel
             {
                 Genres = new SelectList(await genreQuery.Distinct().ToListAsync()),
-                Movies = await moviesQuery.ToListAsync()
+                Movies = await moviesQuery.ToListAsync(),
+                Tris = new SelectList(new List<string> { 
+                    "Titre Z-A" ,
+                    "Prix croissant",
+                    "Prix décroissant",
+                    "Note croissant",
+                    "Note décroissant"
+                }),
             };
 
             return View(movieGenreVM);

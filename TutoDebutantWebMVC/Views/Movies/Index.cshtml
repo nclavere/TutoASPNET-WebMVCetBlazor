@@ -14,10 +14,15 @@
     <p>
 
         <select asp-for="MovieGenre" asp-items="Model.Genres">
-            <option value="">All</option>
+            <option value="">Tous</option>
         </select>
 
-        <label>Title: <input type="text" asp-for="SearchString" /></label>
+        <label>Title: <input type="text" asp-for="SearchString" /></label>        
+
+        <select asp-for="IndexTri" asp-items="Model.Tris">
+            <option value="">Titre A-Z</option>
+        </select>
+
         <input type="submit" value="Filter" />
     </p>
 </form>

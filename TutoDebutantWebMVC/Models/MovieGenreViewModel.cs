@@ -9,4 +9,7 @@ public class MovieGenreViewModel
     public SelectList? Genres { get; set; }
     public string? MovieGenre { get; set; }
     public string? SearchString { get; set; }
+    public SelectList? Tris { get; set; }
+    public string? IndexTri { get; set; }
+
 }
