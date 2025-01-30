@@ -26,4 +26,8 @@ public class Movie
     [Range(1, 100, ErrorMessage = "Le prix doit être de 100 maximum")]
     [Required(ErrorMessage = "Le prix est requis")]
     public double Price { get; set; }
+
+    [Display(Name = "Note")]
+    [Range(0, 5, ErrorMessage = "La note doit etre comprise entre 0 et 5")]
+    public int? Rating { get; set; }
 }

@@ -1,4 +1,6 @@
 ﻿@page "/movies"
+@rendermode InteractiveServer
+
 @using Microsoft.EntityFrameworkCore
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using TutoDebutantBlazor.Entities
@@ -16,18 +18,15 @@
     <a href="movies/create">Create New</a>
 </p>
 
-<div>
-    <form action="/movies" data-enhance data-permanent>
-        <input type="search" name="titleFilter" />
-        <input type="submit" value="Search" />
-    </form>
-</div>
+<input type="search" @bind="titleFilter" @bind:event="oninput" />
 
-<QuickGrid Class="table" Items="FilteredMovies">
-    <PropertyColumn Property="movie => movie.Title" />
-    <PropertyColumn Property="movie => movie.ReleaseDate" />
-    <PropertyColumn Property="movie => movie.Genre" />
-    <PropertyColumn Property="movie => movie.Price" />
+
+<QuickGrid Class="table" Items="FilteredMovies" Pagination="pagination">
+    <PropertyColumn Property="movie => movie.Title" Title="Titre" Sortable="true" />
+    <PropertyColumn Property="movie => movie.ReleaseDate" Title="Date de sortie" Sortable="true" />
+    <PropertyColumn Property="movie => movie.Genre" Title="Genre" Sortable="true" />
+    <PropertyColumn Property="movie => movie.Price" Title="Prix" Sortable="true"  />
+    <PropertyColumn Property="movie => movie.Rating" Title="Note" Sortable="true" />
 
     <TemplateColumn Context="movie">
         <a href="@($"movies/edit?id={movie.Id}")">Edit</a> |
@@ -35,18 +34,20 @@
         <a href="@($"movies/delete?id={movie.Id}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
+<Paginator State="pagination" />
 
 @code {
-    private MoviesDbContext context = default!;
+    private string titleFilter = string.Empty;
+
+    private MoviesDbContext context = default!;   
 
     [Inject]
     private MoviesService service { get; set;  } = default!;
 
-    [SupplyParameterFromQuery]
-    private string? TitleFilter { get; set; }
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 2 };  
 
     private IQueryable<Movie> FilteredMovies =>
-        context.Movie.Where(m => m.Title!.Contains(TitleFilter ?? string.Empty));
+        context.Movie.Where(m => m.Title!.Contains(titleFilter));
 
 
     protected override void OnInitialized()
