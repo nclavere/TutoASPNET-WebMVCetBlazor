@@ -7,6 +7,7 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<TutoDebutantBlazor.Data.MoviesDbContext> DbFactory
 
+
 <PageTitle>Index</PageTitle>
 
 <h1>Index</h1>
@@ -31,10 +32,14 @@
 @code {
     private MoviesDbContext context = default!;
 
+    [Inject]
+    private MoviesService service { get; set;  } = default!;
+
 
     protected override void OnInitialized()
     {
         context = DbFactory.CreateDbContext();
+        var movies = service.GetMovies();
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();

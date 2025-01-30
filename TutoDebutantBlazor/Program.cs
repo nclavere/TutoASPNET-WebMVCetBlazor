@@ -2,6 +2,7 @@ using TutoDebutantBlazor.Components;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using TutoDebutantBlazor.Data;
+using TutoDebutantBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContextFactory<MoviesDbContext>(options =>
@@ -14,6 +15,8 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped<MoviesService>();
 
 var app = builder.Build();
 
