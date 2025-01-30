@@ -3,10 +3,10 @@ La documentation officielle : https://learn.microsoft.com/fr-fr/aspnet/core/?vie
 
 ___ 
 
-**Tutoriel  ASP.NET Core MVC** : 
+**Tutoriel  ASP.NET Core MVC** : <br/>
 https://learn.microsoft.com/fr-fr/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-9.0&tabs=visual-studio
 
 ___
 
-**Tutoriel application de base de données Blazor** :
+**Tutoriel application de base de données Blazor** : <br/>
 https://learn.microsoft.com/fr-fr/aspnet/core/blazor/tutorials/movie-database-app/?view=aspnetcore-9.0
